@@ -8,10 +8,10 @@ const stompClient = new StompJs.Client({
 });
 
 stompClient.onConnect = async () => {
-    stompClient.subscribe('/topic/support_conversation/' + atendimento.id, (message) => {
+    stompClient.subscribe('/topic/support_conversations/' + atendimento.id, (message) => {
         showMessage(JSON.parse(message.body), SENDER);
     });
-    stompClient.subscribe('/topic/support_conversation/' + atendimento.id + '/status', (message) => {
+    stompClient.subscribe('/topic/support_conversations/' + atendimento.id + '/status', (message) => {
         updateStatus(JSON.parse(message.body));
     });
 
@@ -21,7 +21,7 @@ stompClient.onConnect = async () => {
 document.getElementById('form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/api/support_conversation', {
+    const response = await fetch('/api/support_conversations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -108,7 +108,7 @@ async function iniciar() {
         return;
     }
 
-    const response = await fetch('/api/support_conversation/' + id, {
+    const response = await fetch('/api/support_conversations/' + id, {
         headers: { 'Authorization': 'Bearer ' + token }
     });
     if (response.ok) {

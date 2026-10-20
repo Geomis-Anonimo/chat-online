@@ -10,7 +10,7 @@ const stompClient = new StompJs.Client({
 });
 
 stompClient.onConnect = async () => {
-    stompClient.subscribe('/user/queue/support_conversation', (message) => {
+    stompClient.subscribe('/user/queue/support_conversations', (message) => {
         adicionarAtendimento(JSON.parse(message.body));
     });
 
@@ -74,7 +74,7 @@ document.getElementById('close').addEventListener('click', async () => {
         return;
     }
 
-    const response = await fetch('/api/support_conversation/' + selected.id + '/close', {
+    const response = await fetch('/api/support_conversations/' + selected.id + '/finish', {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + admin.token }
     });
@@ -162,7 +162,7 @@ function select(id) {
 }
 
 async function abrirConversa(id) {
-    inscricao = stompClient.subscribe('/topic/support_conversation/' + id, (message) => {
+    inscricao = stompClient.subscribe('/topic/support_conversations/' + id, (message) => {
         showMessage(JSON.parse(message.body), SENDER);
     });
     sessaoValida(await loadMessages(id, SENDER, admin.token));

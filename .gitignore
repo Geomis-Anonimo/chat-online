@@ -1,7 +1,7 @@
 .env
 
-/app/target/
-/app/.mvn/wrapper/maven-wrapper.jar
+target/
+.mvn/wrapper/maven-wrapper.jar
 
 .idea/
 .vscode/

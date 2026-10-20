@@ -1,5 +1,5 @@
 async function loadMessages(atendimentoId, sender, token) {
-    const response = await fetch('/api/support_conversations/' + atendimentoId + '/messages', {
+    const response = await fetch('/api/support-conversations/' + atendimentoId + '/messages', {
         headers: { 'Authorization': 'Bearer ' + token }
     });
     if (response.ok) {

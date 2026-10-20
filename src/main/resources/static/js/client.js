@@ -8,10 +8,10 @@ const stompClient = new StompJs.Client({
 });
 
 stompClient.onConnect = async () => {
-    stompClient.subscribe('/topic/support_conversations/' + atendimento.id, (message) => {
+    stompClient.subscribe('/topic/support-conversations/' + atendimento.id, (message) => {
         showMessage(JSON.parse(message.body), SENDER);
     });
-    stompClient.subscribe('/topic/support_conversations/' + atendimento.id + '/status', (message) => {
+    stompClient.subscribe('/topic/support-conversations/' + atendimento.id + '/status', (message) => {
         updateStatus(JSON.parse(message.body));
     });
 
@@ -21,7 +21,7 @@ stompClient.onConnect = async () => {
 document.getElementById('form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/api/support_conversations', {
+    const response = await fetch('/api/support-conversations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -57,7 +57,7 @@ document.getElementById('form-message').addEventListener('submit', (event) => {
     }
 
     stompClient.publish({
-        destination: '/app/support_conversation/' + atendimento.id + '/messages',
+        destination: '/app/support-conversations/' + atendimento.id + '/messages',
         body: JSON.stringify({ content: campo.value })
     });
     campo.value = '';
@@ -108,7 +108,7 @@ async function iniciar() {
         return;
     }
 
-    const response = await fetch('/api/support_conversations/' + id, {
+    const response = await fetch('/api/support-conversations/' + id, {
         headers: { 'Authorization': 'Bearer ' + token }
     });
     if (response.ok) {

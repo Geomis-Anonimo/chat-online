@@ -10,7 +10,7 @@ const stompClient = new StompJs.Client({
 });
 
 stompClient.onConnect = async () => {
-    stompClient.subscribe('/user/queue/support_conversations', (message) => {
+    stompClient.subscribe('/user/queue/support-conversations', (message) => {
         adicionarAtendimento(JSON.parse(message.body));
     });
 
@@ -22,7 +22,7 @@ stompClient.onConnect = async () => {
     }
 
     if (selected) {
-        abrirConversa(selected.id);
+        openTalk(selected.id);
     }
 };
 
@@ -63,7 +63,7 @@ document.getElementById('form-message').addEventListener('submit', (event) => {
     }
 
     stompClient.publish({
-        destination: '/app/support_conversation/' + selected.id + '/messages',
+        destination: '/app/support-conversations/' + selected.id + '/messages',
         body: JSON.stringify({ content: campo.value })
     });
     campo.value = '';
@@ -74,7 +74,7 @@ document.getElementById('close').addEventListener('click', async () => {
         return;
     }
 
-    const response = await fetch('/api/support_conversations/' + selected.id + '/finish', {
+    const response = await fetch('/api/support-conversations/' + selected.id + '/finish', {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + admin.token }
     });
@@ -157,12 +157,12 @@ function select(id) {
 
     cleanMessages();
     if (stompClient.connected) {
-        abrirConversa(id);
+        openTalk(id);
     }
 }
 
-async function abrirConversa(id) {
-    inscricao = stompClient.subscribe('/topic/support_conversations/' + id, (message) => {
+async function openTalk(id) {
+    inscricao = stompClient.subscribe('/topic/support-conversations/' + id, (message) => {
         showMessage(JSON.parse(message.body), SENDER);
     });
     sessaoValida(await loadMessages(id, SENDER, admin.token));

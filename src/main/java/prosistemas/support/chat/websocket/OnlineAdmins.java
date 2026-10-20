@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Component;
 
 @Component 
-public class OnlineAdmins {
+public class OnlineAdmins implements AdminPresence {
     private final Map<String, Long> sessions = new ConcurrentHashMap<>();
 
     public void add(String sessionId, Long adminId) {
@@ -20,6 +20,11 @@ public class OnlineAdmins {
     }
 
     public Set<Long> ids() {
+        return new HashSet<>(sessions.values());
+    }
+
+    @Override 
+    public Set<Long> onlineIds() {
         return new HashSet<>(sessions.values());
     }
 }

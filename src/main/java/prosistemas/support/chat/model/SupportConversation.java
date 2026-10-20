@@ -41,4 +41,8 @@ public class SupportConversation {
     private StatusSupportConversation status;
 
     private Instant createdAt;
+
+    private Instant finishedAt;
+
+    private Instant assignedAt;
 }

@@ -19,8 +19,8 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @MessageMapping("/supportConversations/{id}/messages")
-    @SendTo("/topic/supportConversations/{id}")
+    @MessageMapping("/support-conversations/{id}/messages")
+    @SendTo("/topic/support-conversations/{id}")
     public MessageResponse enviar(@DestinationVariable Long id, MessageRequest request, User usuario) {
         return MessageResponse.from(messageService.save(id, usuario.type(), request));
     }

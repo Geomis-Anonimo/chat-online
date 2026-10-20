@@ -20,7 +20,7 @@ import prosistemas.support.chat.service.SupportConversationService;
 @Component 
 public class InterceptorAuthentication implements ChannelInterceptor {
     
-    private static final Pattern SUPPORT_CONVERSATION_DESTINY = Pattern.compile("^/(topic|app)/supportConversations/(\\d+)(/\\w+)?$");
+    private static final Pattern SUPPORT_CONVERSATION_DESTINY = Pattern.compile("^/(topic|app)/support-conversations/(\\d+)(/\\w+)?$");
 
     private final TokenService tokenService;
     private final SupportConversationService supportConversationService;

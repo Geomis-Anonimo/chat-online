@@ -18,14 +18,13 @@ import prosistemas.support.chat.dto.NewSupportConversationResponse;
 import prosistemas.support.chat.dto.SupportConversationRequest;
 import prosistemas.support.chat.dto.SupportConversationResponse;
 import prosistemas.support.chat.model.Sender;
-import prosistemas.support.chat.model.StatusSupportConversation;
 import prosistemas.support.chat.model.SupportConversation;
 import prosistemas.support.chat.security.TokenService;
 import prosistemas.support.chat.service.MessageService;
 import prosistemas.support.chat.service.SupportConversationService;
 
 @RestController 
-@RequestMapping("/api/supportConversations")
+@RequestMapping("/api/support-conversations")
 public class SupportConversationController {
     private final SupportConversationService supportConversationService;
     private final MessageService messageService;

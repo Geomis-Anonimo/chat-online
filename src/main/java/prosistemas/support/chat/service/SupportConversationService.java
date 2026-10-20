@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -80,6 +81,7 @@ public class SupportConversationService {
 
         supportConversation.setAdmin(admin.get());
         supportConversation.setStatus(StatusSupportConversation.IN_PROGRESS);
+        supportConversation.setAssignedAt(Instant.now());
         supportConversationRepository.save(supportConversation);
 
         SupportConversationResponse response = SupportConversationResponse.from(supportConversation);
@@ -88,9 +90,11 @@ public class SupportConversationService {
     }
 
     private Optional<Admin> choseFreeAdminByOciosityOrder() {
-        return adminRepository.findAllById(onlineAdmins.ids()).stream()
-                .min(Comparator.comparingLong(admin ->
-                        supportConversationRepository.countByAdminIdAndStatus(admin.getId(), StatusSupportConversation.IN_PROGRESS)));
+        Set<Long> onlineIds = onlineAdmins.onlineIds();
+        if (onlineIds.isEmpty()) {
+            return Optional.empty();
+        }
+        return adminRepository.findNextAvailableAdmin(onlineIds);
     }
 
     private boolean canAccess(SupportConversation supportConversation, User user) {
@@ -106,6 +110,7 @@ public class SupportConversationService {
     public SupportConversation finish(Long id, User usuario) {
         SupportConversation supportConversation = search(id, usuario);
         supportConversation.setStatus(StatusSupportConversation.CLOSED);
+        supportConversation.setFinishedAt(Instant.now());
         supportConversation = supportConversationRepository.save(supportConversation);
 
         notificator.updatedStatus(SupportConversationResponse.from(supportConversation));

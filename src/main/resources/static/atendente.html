@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suporte - Atendente</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form id="login" class="caixa">
+        <h2>Área do atendente</h2>
+        <input id="email" type="email" placeholder="E-mail" required>
+        <input id="senha" type="password" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+        <a href="/">Voltar</a>
+    </form>
+
+    <div id="painel" class="painel" hidden>
+        <aside class="caixa">
+            <p><strong id="nome-atendente"></strong></p>
+            <button id="sair">Sair</button>
+            <h3>Atendimentos</h3>
+            <ul id="atendimentos"></ul>
+        </aside>
+
+        <section id="chat" class="caixa" hidden>
+            <h2 id="cliente-nome"></h2>
+            <p id="cliente-dados"></p>
+            <button id="encerrar">Encerrar atendimento</button>
+            <div id="mensagens" class="mensagens"></div>
+            <form id="form-mensagem" class="enviar">
+                <input id="conteudo" placeholder="Digite sua mensagem" maxlength="2000" autocomplete="off">
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<script src="/js/chat.js"></script>
+<script src="/js/atendente.js"></script>
+</body>
+</html>

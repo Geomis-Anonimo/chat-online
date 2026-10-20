@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suporte</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form id="formulario" class="caixa">
+        <h2>Fale com o suporte</h2>
+        <input id="nome" placeholder="Nome" maxlength="100" required>
+        <input id="email" type="email" placeholder="E-mail" maxlength="150" required>
+        <input id="celular" type="tel" placeholder="Celular" maxlength="20" required>
+        <input id="assunto" placeholder="Assunto" maxlength="200" required>
+        <button type="submit">Iniciar atendimento</button>
+        <a href="/atendente.html">Sou atendente</a>
+    </form>
+
+    <div id="chat" class="caixa" hidden>
+        <h2 id="titulo"></h2>
+        <p id="status"></p>
+        <div id="mensagens" class="mensagens"></div>
+        <form id="form-mensagem" class="enviar">
+            <input id="conteudo" placeholder="Digite sua mensagem" maxlength="2000" autocomplete="off">
+            <button type="submit">Enviar</button>
+        </form>
+        <button id="novo" hidden>Novo atendimento</button>
+    </div>
+</div>
+
+<script src="/js/chat.js"></script>
+<script src="/js/cliente.js"></script>
+</body>
+</html>

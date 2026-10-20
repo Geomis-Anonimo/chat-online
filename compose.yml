@@ -16,7 +16,7 @@ services:
       retries: 10
 
   app:
-    build: ./app
+    build: .
     container_name: chat_app
     depends_on:
       postgres:

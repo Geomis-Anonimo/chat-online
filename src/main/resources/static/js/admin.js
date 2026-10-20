@@ -11,14 +11,14 @@ const stompClient = new StompJs.Client({
 
 stompClient.onConnect = async () => {
     stompClient.subscribe('/user/queue/support-conversations', (message) => {
-        adicionarAtendimento(JSON.parse(message.body));
+        addSupportConversation(JSON.parse(message.body));
     });
 
     const response = await fetch('/api/admins/me/support_conversation', {
         headers: { 'Authorization': 'Bearer ' + admin.token }
     });
-    if (sessaoValida(response)) {
-        (await response.json()).forEach(adicionarAtendimento);
+    if (validSesssion(response)) {
+        (await response.json()).forEach(addSupportConversation);
     }
 
     if (selected) {
@@ -78,7 +78,7 @@ document.getElementById('close').addEventListener('click', async () => {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + admin.token }
     });
-    if (!sessaoValida(response)) {
+    if (!validSesssion(response)) {
         alert('Não foi possível encerrar o atendimento.');
         return;
     }
@@ -90,7 +90,7 @@ document.getElementById('close').addEventListener('click', async () => {
     delete support_conversation[selected.id];
     selected = null;
     document.getElementById('chat').hidden = true;
-    renderizarLista();
+    handleList();
 });
 
 document.getElementById('onLogout').addEventListener('click', () => onLogout());
@@ -101,7 +101,7 @@ function onLogout() {
     location.reload();
 }
 
-function sessaoValida(response) {
+function validSesssion(response) {
     if (response.status === 401) {
         onLogout();
     }
@@ -118,27 +118,27 @@ function openPanel(dados) {
     stompClient.activate();
 }
 
-function adicionarAtendimento(dados) {
+function addSupportConversation(dados) {
     support_conversation[dados.id] = dados;
-    renderizarLista();
+    handleList();
 }
 
-function renderizarLista() {
-    const lista = document.getElementById('support_conversation');
-    lista.innerHTML = '';
+function handleList() {
+    const list = document.getElementById('support_conversation');
+    list.innerHTML = '';
 
-    const todos = Object.values(support_conversation);
-    if (todos.length === 0) {
-        lista.innerHTML = '<li>Nenhum atendimento no momento</li>';
+    const all = Object.values(support_conversation);
+    if (all.length === 0) {
+        list.innerHTML = '<li>Nenhum atendimento no momento</li>';
         return;
     }
 
-    todos.forEach(dados => {
+    all.forEach(data => {
         const item = document.createElement('li');
-        item.textContent = dados.clientName + ' - ' + dados.title;
-        item.className = 'item' + (selected && selected.id === dados.id ? ' ativo' : '');
-        item.addEventListener('click', () => select(dados.id));
-        lista.appendChild(item);
+        item.textContent = data.clientName + ' - ' + data.title;
+        item.className = 'item' + (selected && selected.id === data.id ? ' ativo' : '');
+        item.addEventListener('click', () => select(data.id));
+        list.appendChild(item);
     });
 }
 
@@ -149,7 +149,7 @@ function select(id) {
     inscricao = null;
 
     selected = support_conversation[id];
-    renderizarLista();
+    handleList();
     document.getElementById('chat').hidden = false;
     document.getElementById('client-name').textContent = selected.clientName;
     document.getElementById('client-data').textContent =
@@ -165,7 +165,7 @@ async function openTalk(id) {
     inscricao = stompClient.subscribe('/topic/support-conversations/' + id, (message) => {
         showMessage(JSON.parse(message.body), SENDER);
     });
-    sessaoValida(await loadMessages(id, SENDER, admin.token));
+    validSesssion(await loadMessages(id, SENDER, admin.token));
 }
 
 const salvo = localStorage.getItem('admin');

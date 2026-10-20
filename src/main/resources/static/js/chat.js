@@ -1,33 +1,33 @@
-async function carregarMensagens(atendimentoId, remetente, token) {
-    const resposta = await fetch('/api/atendimentos/' + atendimentoId + '/mensagens', {
+async function loadMessages(atendimentoId, sender, token) {
+    const response = await fetch('/api/support_conversation/' + atendimentoId + '/messages', {
         headers: { 'Authorization': 'Bearer ' + token }
     });
-    if (resposta.ok) {
-        (await resposta.json()).forEach(mensagem => mostrarMensagem(mensagem, remetente));
+    if (response.ok) {
+        (await response.json()).forEach(message => showMessage(message, sender));
     }
-    return resposta;
+    return response;
 }
 
-function limparMensagens() {
-    document.getElementById('mensagens').innerHTML = '';
+function cleanMessages() {
+    document.getElementById('messages').innerHTML = '';
 }
 
-function mostrarMensagem(mensagem, remetente) {
-    const lista = document.getElementById('mensagens');
-    if (lista.querySelector('[data-id="' + mensagem.id + '"]')) {
+function showMessage(message, sender) {
+    const lista = document.getElementById('messages');
+    if (lista.querySelector('[data-id="' + message.id + '"]')) {
         return;
     }
 
     const div = document.createElement('div');
-    div.dataset.id = mensagem.id;
-    div.className = 'mensagem ' + (mensagem.remetente === remetente ? 'minha' : 'outra');
-    div.textContent = mensagem.conteudo;
+    div.dataset.id = message.id;
+    div.className = 'message ' + (message.sender === sender ? 'minha' : 'outra');
+    div.textContent = message.content;
 
-    const hora = document.createElement('small');
-    hora.textContent = new Date(mensagem.dataEnvio).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    div.appendChild(hora);
+    const hour = document.createElement('small');
+    hour.textContent = new Date(message.sentDate).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    div.appendChild(hour);
 
-    const proxima = [...lista.children].find(item => Number(item.dataset.id) > mensagem.id);
+    const proxima = [...lista.children].find(item => Number(item.dataset.id) > message.id);
     lista.insertBefore(div, proxima || null);
     lista.scrollTop = lista.scrollHeight;
 }

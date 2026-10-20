@@ -18,14 +18,14 @@ body {
     padding: 0 16px;
 }
 
-.caixa {
+.box {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 16px;
 }
 
-form.caixa {
+form.box {
     max-width: 400px;
     margin: 0 auto;
 }
@@ -53,16 +53,16 @@ a {
     color: #555;
 }
 
-.painel {
+.panel {
     display: flex;
     gap: 16px;
 }
 
-.painel aside {
+.panel aside {
     width: 260px;
 }
 
-.painel section {
+.panel section {
     flex: 1;
 }
 
@@ -81,7 +81,7 @@ ul {
     background: #e3eefc;
 }
 
-.mensagens {
+.messages {
     height: 400px;
     overflow-y: auto;
     margin: 12px 0;
@@ -90,7 +90,7 @@ ul {
     border: 1px solid #eee;
 }
 
-.mensagem {
+.message {
     max-width: 70%;
     margin-bottom: 8px;
     padding: 8px 10px;
@@ -99,7 +99,7 @@ ul {
     word-wrap: break-word;
 }
 
-.mensagem small {
+.message small {
     display: block;
     margin-top: 4px;
     font-size: 11px;
@@ -116,11 +116,11 @@ ul {
     background: #e5e5e5;
 }
 
-.enviar {
+.send {
     display: flex;
     gap: 8px;
 }
 
-.enviar input {
+.send input {
     margin-bottom: 0;
 }

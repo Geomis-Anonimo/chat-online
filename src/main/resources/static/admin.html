@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suporte - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form id="login" class="box">
+        <h2>Área do suporte</h2>
+        <input id="email" type="email" placeholder="E-mail" required>
+        <input id="password" type="password" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+        <a href="/">Voltar</a>
+    </form>
+
+    <div id="panel" class="panel" hidden>
+        <aside class="box">
+            <p><strong id="name-admin"></strong></p>
+            <button id="onLogout">Sair</button>
+            <h3>Atendimentos</h3>
+            <ul id="support_conversation"></ul>
+        </aside>
+
+        <section id="chat" class="box" hidden>
+            <h2 id="client-name"></h2>
+            <p id="client-data"></p>
+            <button id="close">Encerrar atendimento</button>
+            <div id="messages" class="messages"></div>
+            <form id="form-message" class="send">
+                <input id="content" placeholder="Digite sua mensagem" maxlength="2000" autocomplete="off">
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<script src="./js/chat.js"></script>
+<script src="./js/admin.js"></script>
+</body>
+</html>

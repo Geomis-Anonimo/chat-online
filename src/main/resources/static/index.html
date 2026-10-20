@@ -9,29 +9,29 @@
 </head>
 <body>
 <div class="container">
-    <form id="formulario" class="caixa">
+    <form id="form" class="box">
         <h2>Fale com o suporte</h2>
-        <input id="nome" placeholder="Nome" maxlength="100" required>
+        <input id="name" placeholder="Nome" maxlength="100" required>
         <input id="email" type="email" placeholder="E-mail" maxlength="150" required>
-        <input id="celular" type="tel" placeholder="Celular" maxlength="20" required>
-        <input id="assunto" placeholder="Assunto" maxlength="200" required>
+        <input id="phone" type="tel" placeholder="Celular" maxlength="20" required>
+        <input id="title" placeholder="Assunto" maxlength="200" required>
         <button type="submit">Iniciar atendimento</button>
-        <a href="/atendente.html">Sou atendente</a>
+        <a href="./admin.html">Sou administrador</a>
     </form>
 
-    <div id="chat" class="caixa" hidden>
-        <h2 id="titulo"></h2>
+    <div id="chat" class="box" hidden>
+        <h2 id="chat-title"></h2>
         <p id="status"></p>
-        <div id="mensagens" class="mensagens"></div>
-        <form id="form-mensagem" class="enviar">
-            <input id="conteudo" placeholder="Digite sua mensagem" maxlength="2000" autocomplete="off">
+        <div id="messages" class="messages"></div>
+        <form id="form-message" class="send">
+            <input id="content" placeholder="Digite sua mensagem" maxlength="2000" autocomplete="off">
             <button type="submit">Enviar</button>
         </form>
         <button id="novo" hidden>Novo atendimento</button>
     </div>
 </div>
 
-<script src="/js/chat.js"></script>
-<script src="/js/cliente.js"></script>
+<script src="./js/chat.js"></script>
+<script src="./js/client.js"></script>
 </body>
 </html>

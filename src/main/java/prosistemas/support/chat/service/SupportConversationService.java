@@ -109,6 +109,10 @@ public class SupportConversationService {
 
     public SupportConversation finish(Long id, User usuario) {
         SupportConversation supportConversation = search(id, usuario);
+
+        if (!supportConversation.getStatus().equals(StatusSupportConversation.IN_PROGRESS)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "O Atendimento não está em andamento para ser finalizado");
+        }
         supportConversation.setStatus(StatusSupportConversation.CLOSED);
         supportConversation.setFinishedAt(Instant.now());
         supportConversation = supportConversationRepository.save(supportConversation);
@@ -118,11 +122,11 @@ public class SupportConversationService {
     }
 
     public SupportConversation search(Long id, User usuario) {
-        SupportConversation atendimento = search(id);
-        if (!canAccess(atendimento, usuario)) {
+        SupportConversation supportConveersation = search(id);
+        if (!canAccess(supportConveersation, usuario)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Denied access");
         }
-        return atendimento;
+        return supportConveersation;
     }
 
     public synchronized void queueDistribute() {

@@ -1,28 +1,11 @@
-* {
-    box-sizing: border-box;
-}
-
 [hidden] {
     display: none !important;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-}
-
 .container {
-    max-width: 900px;
-    margin: 40px auto;
+    max-width: 960px;
+    margin: 48px auto;
     padding: 0 16px;
-}
-
-.box {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 16px;
 }
 
 form.box {
@@ -30,27 +13,8 @@ form.box {
     margin: 0 auto;
 }
 
-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 4px;
-    background: #1e6fd9;
-    color: #fff;
-    cursor: pointer;
-}
-
 a {
     display: block;
-    margin-top: 12px;
-    color: #555;
 }
 
 .panel {
@@ -60,10 +24,22 @@ a {
 
 .panel aside {
     width: 260px;
+    flex-shrink: 0;
 }
 
 .panel section {
     flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 700px) {
+    .panel {
+        flex-direction: column;
+    }
+
+    .panel aside {
+        width: 100%;
+    }
 }
 
 ul {
@@ -72,31 +48,38 @@ ul {
 }
 
 .item {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
+    padding: 10px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
+.item:hover {
+    background: var(--bs-tertiary-bg);
+}
+
 .item.ativo {
-    background: #e3eefc;
+    background: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
 }
 
 .messages {
     height: 400px;
     overflow-y: auto;
-    margin: 12px 0;
-    padding: 8px;
-    background: #fafafa;
-    border: 1px solid #eee;
+    margin: 16px 0;
+    padding: 12px;
+    background: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
 }
 
 .message {
     max-width: 70%;
+    width: fit-content;
     margin-bottom: 8px;
-    padding: 8px 10px;
-    border-radius: 6px;
+    padding: 8px 12px;
+    border-radius: 12px;
     white-space: pre-wrap;
     word-wrap: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .message small {
@@ -104,23 +87,22 @@ ul {
     margin-top: 4px;
     font-size: 11px;
     opacity: 0.7;
+    text-align: right;
 }
 
 .minha {
     margin-left: auto;
-    background: #1e6fd9;
+    background: var(--bs-primary);
     color: #fff;
+    border-bottom-right-radius: 4px;
 }
 
 .outra {
-    background: #e5e5e5;
+    background: var(--bs-body-bg);
+    border-bottom-left-radius: 4px;
 }
 
 .send {
     display: flex;
     gap: 8px;
-}
-
-.send input {
-    margin-bottom: 0;
 }

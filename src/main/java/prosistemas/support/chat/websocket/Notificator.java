@@ -16,11 +16,11 @@ public class Notificator {
     }
 
     public void newSupportConversation(Long adminId, SupportConversationResponse atendimento) {
-        String usuario = new User(Sender.ADMIN, adminId).getName();
-        messagingTemplate.convertAndSendToUser(usuario, "/queue/support-conversations", atendimento);
+        String user = new User(Sender.ADMIN, adminId).getName();
+        messagingTemplate.convertAndSendToUser(user, "/queue/support-conversations", atendimento);
     }
 
-    public void updatedStatus(SupportConversationResponse supportConversation) {
+    public void updateTalkStatus(SupportConversationResponse supportConversation) {
         messagingTemplate.convertAndSend("/topic/support-conversations/" + supportConversation.id() + "/status", supportConversation);
     }
 }

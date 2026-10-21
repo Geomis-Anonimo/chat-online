@@ -3,9 +3,9 @@ const SENDER = 'ADMIN';
 let admin = null;
 let support_conversation = {};
 let selected = null;
-let inscricao = null;
+let inscrito = null;
 
-const stompClient = new StompJs.Client({
+const stompClient = new StompJS.Client({
     brokerURL: 'ws://' + location.host + '/ws'
 });
 
@@ -45,9 +45,9 @@ document.getElementById('login').addEventListener('submit', async (event) => {
         return;
     }
 
-    const dados = await response.json();
-    localStorage.setItem('admin', JSON.stringify(dados));
-    openPanel(dados);
+    const data = await response.json();
+    localStorage.setItem('admin', JSON.stringify(data));
+    openPanel(data);
 });
 
 document.getElementById('form-message').addEventListener('submit', (event) => {
@@ -84,9 +84,9 @@ document.getElementById('close').addEventListener('click', async () => {
     }
 
     if (stompClient.connected) {
-        inscricao.unsubscribe();
+        inscrito.unsubscribe();
     }
-    inscricao = null;
+    inscrito = null;
     delete support_conversation[selected.id];
     selected = null;
     document.getElementById('chat').hidden = true;
@@ -143,10 +143,10 @@ function handleList() {
 }
 
 function select(id) {
-    if (inscricao && stompClient.connected) {
-        inscricao.unsubscribe();
+    if (inscrito && stompClient.connected) {
+        inscrito.unsubscribe();
     }
-    inscricao = null;
+    inscrito = null;
 
     selected = support_conversation[id];
     handleList();
@@ -162,7 +162,7 @@ function select(id) {
 }
 
 async function openTalk(id) {
-    inscricao = stompClient.subscribe('/topic/support-conversations/' + id, (message) => {
+    inscrito = stompClient.subscribe('/topic/support-conversations/' + id, (message) => {
         showMessage(JSON.parse(message.body), SENDER);
     });
     validSesssion(await loadMessages(id, SENDER, admin.token));

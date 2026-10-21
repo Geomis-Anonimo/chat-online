@@ -86,7 +86,7 @@ public class SupportConversationService {
 
         SupportConversationResponse response = SupportConversationResponse.from(supportConversation);
         notificator.newSupportConversation(admin.get().getId(), response);
-        notificator.updatedStatus(response);
+        notificator.updateTalkStatus(response);
     }
 
     private Optional<Admin> choseFreeAdminByOciosityOrder() {
@@ -117,7 +117,7 @@ public class SupportConversationService {
         supportConversation.setFinishedAt(Instant.now());
         supportConversation = supportConversationRepository.save(supportConversation);
 
-        notificator.updatedStatus(SupportConversationResponse.from(supportConversation));
+        notificator.updateTalkStatus(SupportConversationResponse.from(supportConversation));
         return supportConversation;
     }
 

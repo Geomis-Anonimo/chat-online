@@ -37,11 +37,11 @@ document.getElementById('form').addEventListener('submit', async (event) => {
         return;
     }
 
-    const novo = await response.json();
-    token = novo.token;
-    localStorage.setItem('atendimentoId', novo.atendimento.id);
+    const res = await response.json();
+    token = res.token;
+    localStorage.setItem('atendimentoId', res.atendimento.id);
     localStorage.setItem('token', token);
-    openChat(novo.atendimento);
+    openChat(res.atendimento);
 });
 
 document.getElementById('form-message').addEventListener('submit', (event) => {

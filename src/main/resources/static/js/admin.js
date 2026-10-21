@@ -5,7 +5,7 @@ let support_conversation = {};
 let selected = null;
 let inscrito = null;
 
-const stompClient = new StompJS.Client({
+const stompClient = new StompJs.Client({
     brokerURL: 'ws://' + location.host + '/ws'
 });
 

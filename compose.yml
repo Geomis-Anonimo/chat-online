@@ -3,15 +3,15 @@ services:
     image: postgres:15
     container_name: chat_postgres
     environment:
-      POSTGRES_USER: ${PG_USER:-db}
-      POSTGRES_PASSWORD: ${PG_PASSWORD:-db}
-      POSTGRES_DB: ${PG_DB:-db}
+      POSTGRES_USER: ${PG_USER:-user_db}
+      POSTGRES_PASSWORD: ${password_db:-password_db}
+      POSTGRES_DB: ${PG_DB:-chat_db}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-chat} -d ${PG_DB:-db}"]
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-user_db} -d ${PG_DB:-chat_db}"]
       interval: 5s
       retries: 10
 
@@ -24,10 +24,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:postgresql://postgres:5432/${PG_DB:-db}
-      PG_USER: ${PG_USER:-db}
-      PG_PASSWORD: ${PG_PASSWORD:-db}
-      JWT_SECRET: ${JWT_SECRET:-secreta-so-se-der-erro-ao-buscar-a-env}
+      DB_URL: jdbc:postgresql://postgres:5432/${PG_DB:-chat_db}
+      PG_USER: ${PG_USER:-user_db}
+      PG_PASSWORD: ${PG_PASSWORD:-password_db}
+      JWT_SECRET: ${JWT_SECRET:-h918qqopwti9734gh897123g419238y1028319082371whrqo}
 
 volumes:
   postgres_data:
